@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" prefHeight="800.0" prefWidth="1200.0">
+    <children>
+        <!-- Table for displaying packets -->
+        <TableView fx:id="packetTable" layoutX="50.0" layoutY="50.0" prefHeight="600.0" prefWidth="1100.0">
+            <columns>
+                <TableColumn fx:id="timeColumn" text="Time" prefWidth="150.0" />
+                <TableColumn fx:id="sourceColumn" text="Source" prefWidth="200.0" />
+                <TableColumn fx:id="destinationColumn" text="Destination" prefWidth="200.0" />
+                <TableColumn fx:id="protocolColumn" text="Protocol" prefWidth="150.0" />
+                <TableColumn fx:id="lengthColumn" text="Length" prefWidth="100.0" />
+            </columns>
+        </TableView>
+
+        <!-- Stop capture button -->
+        <Button fx:id="stopCaptureButton" layoutX="50.0" layoutY="670.0" text="Stop Capture" onAction="#onStopCapture" prefHeight="34.0" prefWidth="200.0"/>
+    </children>
+</AnchorPane>

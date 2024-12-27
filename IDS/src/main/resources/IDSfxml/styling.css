@@ -1,0 +1,14 @@
+.choice-box {
+    -fx-background-color: #333333; /* Background color for the box */
+    -fx-text-fill: white;         /* Text color */
+    -fx-font-size: 14px;          /* Adjust font size */
+}
+
+.choice-box .list-cell {
+    -fx-background-color: #444444; /* Background for dropdown items */
+    -fx-text-fill: white;          /* Text color for dropdown items */
+}
+
+.choice-box .arrow-button {
+    -fx-background-color: #333333; /* Arrow button color */
+}
