@@ -34,6 +34,8 @@ public class PacketCaptureController {
 
     @FXML
     private Button stopCaptureButton;
+    @FXML
+    private Button resumeCaptureButton;
 
     private ObservableList<PacketData> packetDataList = FXCollections.observableArrayList();
 
@@ -51,20 +53,20 @@ public class PacketCaptureController {
 
         packetTable.setItems(packetDataList);
 
-        // Start capturing packets in a separate thread
-        new Thread(() -> {
+        stopCaptureButton.setOnAction(e->packetReception.stopCapture());
+
+        resumeCaptureButton.setOnAction(e->{
             try {
-                packetReception.runCapture(packetDataList); // Pass ObservableList for updates
-            } catch (Exception e) {
-                e.printStackTrace();
+                packetReception.resumeCapture(packetDataList); // Resume capturing packets
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-        }).start();
+        });
     }
 
-    @FXML
-    public void onStopCapture() {
-        System.out.println("Capture stopped.");
-        packetReception.stopCapture();  // Call stopCapture to stop the capture
-    }
+
+
+
+
 
 }

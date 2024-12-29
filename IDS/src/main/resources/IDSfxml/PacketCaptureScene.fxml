@@ -1,25 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" prefHeight="800.0" prefWidth="1200.0">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <!-- Table for displaying packets -->
-        <TableView fx:id="packetTable" layoutX="50.0" layoutY="50.0" prefHeight="600.0" prefWidth="1100.0">
+        <TableView fx:id="packetTable" layoutX="50.0" layoutY="218.0" prefHeight="432.0" prefWidth="1100.0">
             <columns>
-                <TableColumn fx:id="timeColumn" text="Time" prefWidth="150.0" />
-                <TableColumn fx:id="sourceColumn" text="Source" prefWidth="200.0" />
-                <TableColumn fx:id="destinationColumn" text="Destination" prefWidth="200.0" />
-                <TableColumn fx:id="protocolColumn" text="Protocol" prefWidth="150.0" />
-                <TableColumn fx:id="lengthColumn" text="Length" prefWidth="100.0" />
+                <TableColumn fx:id="timeColumn" prefWidth="150.0" text="Time" />
+                <TableColumn fx:id="sourceColumn" prefWidth="200.0" text="Source" />
+                <TableColumn fx:id="destinationColumn" prefWidth="200.0" text="Destination" />
+                <TableColumn fx:id="protocolColumn" prefWidth="150.0" text="Protocol" />
+                <TableColumn fx:id="lengthColumn" prefWidth="106.0" text="Length" />
             </columns>
         </TableView>
 
         <!-- Stop capture button -->
-        <Button fx:id="stopCaptureButton" layoutX="50.0" layoutY="670.0" text="Stop Capture" onAction="#onStopCapture" prefHeight="34.0" prefWidth="200.0"/>
+        <Button fx:id="stopCaptureButton" layoutX="50.0" layoutY="670.0"  prefHeight="34.0" prefWidth="200.0" text="Stop Capture" />
+        <Button fx:id="resumeCaptureButton" layoutX="280.0" layoutY="670.0"  prefHeight="34.0" prefWidth="200.0"  text="Run Capture" />
+      <HBox alignment="CENTER_LEFT" layoutX="50.0" layoutY="41.0" prefHeight="147.0" prefWidth="1100.0" spacing="80.0">
+         <children>
+            <AnchorPane fx:id="packetBox" prefHeight="147.0" prefWidth="247.0">
+               <children>
+                  <Text fx:id="packetNumber" layoutX="3.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="240.7294921875" />
+                  <Text layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Packet Number" wrappingWidth="247.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="threathBox" prefHeight="147.0" prefWidth="247.0">
+               <children>
+                  <Text fx:id="treathNumber" layoutX="3.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="240.7294921875" />
+                  <Text layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Threath Detected" wrappingWidth="247.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="connectionBox" prefHeight="147.0" prefWidth="247.0">
+               <children>
+                  <Text fx:id="connexionNumber" layoutX="3.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="240.7294921875" />
+                  <Text layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Connections" wrappingWidth="247.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
     </children>
 </AnchorPane>

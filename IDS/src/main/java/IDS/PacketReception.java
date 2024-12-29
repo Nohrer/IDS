@@ -41,19 +41,24 @@ public class PacketReception {
     }
 
     public void runCapture(ObservableList<PacketData> packetDataList) throws PcapNativeException, NotOpenException, InterruptedException {
+        if (device == null) {
+            System.err.println("No device selected. Cannot start capture.");
+            return;
+        }
+
         int snapshotLength = 65536;
         int readTimeout = 100;
         PcapHandle handle = device.openLive(snapshotLength, PcapNetworkInterface.PromiscuousMode.PROMISCUOUS, readTimeout);
-        // Capture packets and apply filters
+
+        stopCapture = false; // Ensure the flag is reset before starting
         handle.loop(-1, new PacketListener() {
             @Override
             public void gotPacket(Packet packet) {
                 if (stopCapture) {
-                    // If stopCapture is true, stop processing the packets
                     try {
-                        handle.breakLoop();  // This will stop the loop
+                        handle.breakLoop(); // Stop the loop when `stopCapture` is true
                     } catch (NotOpenException e) {
-                        throw new RuntimeException(e);
+                        e.printStackTrace();
                     }
                     return;
                 }
@@ -61,7 +66,7 @@ public class PacketReception {
                 // Store the raw packet for future filtering
                 capturedPackets.add(packet);
 
-                // Create PacketData for display (raw data without filters)
+                // Create PacketData for display
                 String time = new Date().toString();
                 String source = extractSource(packet);
                 String destination = extractDestination(packet);
@@ -76,6 +81,16 @@ public class PacketReception {
         });
 
         handle.close();
+    }
+
+
+    public void resumeCapture(ObservableList<PacketData> packetDataList) {
+        stopCapture = false; // Reset the flag
+        try {
+            runCapture(packetDataList); // Restart the capture loop
+        } catch (PcapNativeException | NotOpenException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private String extractSource(Packet packet) {
