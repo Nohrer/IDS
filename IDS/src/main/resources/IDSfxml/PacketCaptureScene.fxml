@@ -21,8 +21,8 @@
         </TableView>
 
         <!-- Stop capture button -->
-        <Button fx:id="stopCaptureButton" layoutX="50.0" layoutY="670.0"  prefHeight="34.0" prefWidth="200.0" text="Stop Capture" />
-        <Button fx:id="resumeCaptureButton" layoutX="280.0" layoutY="670.0"  prefHeight="34.0" prefWidth="200.0"  text="Run Capture" />
+        <Button fx:id="stopCaptureButton" onAction="#onStopCapture" layoutX="50.0" layoutY="670.0"  prefHeight="34.0" prefWidth="200.0" text="Stop Capture" />
+        <Button fx:id="resumeCaptureButton" onAction="onResumeCapture" layoutX="280.0" layoutY="670.0"  prefHeight="34.0" prefWidth="200.0"  text="Run Capture" />
       <HBox alignment="CENTER_LEFT" layoutX="50.0" layoutY="41.0" prefHeight="147.0" prefWidth="1100.0" spacing="80.0">
          <children>
             <AnchorPane fx:id="packetBox" prefHeight="147.0" prefWidth="247.0">
