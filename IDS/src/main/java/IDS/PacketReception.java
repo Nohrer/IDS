@@ -44,6 +44,7 @@ public class PacketReception {
     }
 
     // Start packet capture
+    //n9dro ndiro nfs lblan
     public void runCapture(ObservableList<PacketData> packetDataList) {
         if (isCapturing) {
             System.out.println("Capture is already running.");
@@ -110,8 +111,6 @@ public class PacketReception {
 
     public void recapture(ObservableList<PacketData> packetDataList) {
         // Clear the existing packet list
-        packetDataList.clear();
-        capturedPackets.clear();
 
         // Start a new capture session
         runCapture(packetDataList);
