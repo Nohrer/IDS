@@ -13,6 +13,7 @@ import java.util.List;
 
 public class PacketReception {
     private PcapNetworkInterface device = null;
+    private ConnectionTracker connectionTracker;
     private final List<Packet> capturedPackets = new ArrayList<>();
     private final List<PacketFilter> filters = new ArrayList<>();
     private PcapHandle handle; // Handle for packet capture
@@ -110,9 +111,6 @@ public class PacketReception {
     }
 
     public void recapture(ObservableList<PacketData> packetDataList) {
-        // Clear the existing packet list
-
-        // Start a new capture session
         runCapture(packetDataList);
     }
 
@@ -181,4 +179,6 @@ public class PacketReception {
     public List<Packet> getCapturedPackets() {
         return capturedPackets;
     }
+
+
 }

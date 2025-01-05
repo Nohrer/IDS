@@ -4,6 +4,7 @@ import IDS.ConnectionTracker;
 import IDS.PacketData;
 import IDS.PacketReception;
 import IDS.TrafficCounter;
+import javafx.beans.value.ObservableIntegerValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
@@ -17,7 +18,6 @@ import javafx.scene.text.Text;
 public class PacketCaptureController {
 
     private PacketReception packetReception;
-    private ConnectionTracker connectionTracker;
     @FXML
     private TableView<PacketData> packetTable;
 
@@ -43,10 +43,9 @@ public class PacketCaptureController {
     private Text connexionNumber;
 
     private ObservableList<PacketData> packetDataList = FXCollections.observableArrayList();
-
-    public PacketCaptureController(PacketReception packetReception,ConnectionTracker connectionTracker) {
+    public PacketCaptureController(PacketReception packetReception) {
         this.packetReception = packetReception;
-        this.connectionTracker=connectionTracker;
+
     }
 
     @FXML
@@ -59,9 +58,9 @@ public class PacketCaptureController {
 
         packetTable.setItems(packetDataList);
         setPacketNumber();
-        setConnectionNumber();
         new Thread(() -> {
             try {
+
                 packetReception.runCapture(packetDataList); // Pass ObservableList for updates
             } catch (Exception e) {
                 e.printStackTrace();
@@ -92,7 +91,5 @@ public class PacketCaptureController {
             System.out.println("Error: packetDataList or packetNumber is null.");
         }
     }
-    public  void setConnectionNumber(){
-        connexionNumber.setText(String.valueOf(connectionTracker.getActiveConnectionCount()));
-    }
+
 }
