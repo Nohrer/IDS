@@ -1,7 +1,10 @@
 package Controller;
 
+import IDS.ConnectionTracker;
 import IDS.PacketData;
 import IDS.PacketReception;
+import IDS.TrafficCounter;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
@@ -9,11 +12,12 @@ import javafx.scene.control.Button;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.text.Text;
 
 public class PacketCaptureController {
 
     private PacketReception packetReception;
-
+    private ConnectionTracker connectionTracker;
     @FXML
     private TableView<PacketData> packetTable;
 
@@ -32,11 +36,17 @@ public class PacketCaptureController {
     @FXML
     private TableColumn<PacketData, String> lengthColumn;
 
+    @FXML
+    private Text packetNumber;
+
+    @FXML
+    private Text connexionNumber;
 
     private ObservableList<PacketData> packetDataList = FXCollections.observableArrayList();
 
-    public PacketCaptureController(PacketReception packetReception) {
+    public PacketCaptureController(PacketReception packetReception,ConnectionTracker connectionTracker) {
         this.packetReception = packetReception;
+        this.connectionTracker=connectionTracker;
     }
 
     @FXML
@@ -48,7 +58,8 @@ public class PacketCaptureController {
         lengthColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getLength()));
 
         packetTable.setItems(packetDataList);
-
+        setPacketNumber();
+        setConnectionNumber();
         new Thread(() -> {
             try {
                 packetReception.runCapture(packetDataList); // Pass ObservableList for updates
@@ -60,16 +71,28 @@ public class PacketCaptureController {
     }
 
     @FXML
-    public void onStopCapture(){
+    public void onStopCapture(ActionEvent e){
         packetReception.stopCapture();
     }
 
     @FXML
-    public void onResumeCapture(){
+    public void onResumeCapture(ActionEvent e){
         try {
-            packetReception.resumeCapture(packetDataList); // Resume capturing packets
+            packetReception.recapture(packetDataList); // Resume capturing packets
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void setPacketNumber() {
+        if (packetDataList != null && packetNumber != null) {
+            int size = packetDataList.size();
+            packetNumber.setText(String.valueOf(size));
+        } else {
+            System.out.println("Error: packetDataList or packetNumber is null.");
+        }
+    }
+    public  void setConnectionNumber(){
+        connexionNumber.setText(String.valueOf(connectionTracker.getActiveConnectionCount()));
     }
 }

@@ -2,6 +2,7 @@ package App;
 
 import Controller.MainSceneController;
 import Controller.PacketCaptureController;
+import IDS.ConnectionTracker;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +14,7 @@ import java.io.IOException;
 
 public class IdsApplication extends Application {
     private PacketReception packetReception = new PacketReception(); // Shared instance
-
+    private ConnectionTracker connectionTracker=new ConnectionTracker();
     @Override
     public void start(Stage primaryStage) throws Exception {
         switchToMainScene(primaryStage); // Start with the main scene
@@ -37,7 +38,7 @@ public class IdsApplication extends Application {
 
     public void switchToPacketCapture(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/IDSfxml/PacketCaptureScene.fxml"));
-        PacketCaptureController packetController = new PacketCaptureController(packetReception);
+        PacketCaptureController packetController = new PacketCaptureController(packetReception,connectionTracker);
         loader.setController(packetController);
 
         Parent root = loader.load();
