@@ -145,48 +145,53 @@ public class PacketReception {
 
     // Extract source IP
     private String extractSource(Packet packet) {
-        if (packet instanceof IpPacket) {
-            return ((IpPacket) packet).getHeader().getSrcAddr().getHostAddress();
-        } else if (packet instanceof EthernetPacket) {
-            Packet payload = ((EthernetPacket) packet).getPayload();
-            if (payload instanceof IpPacket) {
-                return ((IpPacket) payload).getHeader().getSrcAddr().getHostAddress();
+        while (packet != null) {
+            if (packet instanceof IpPacket) {
+                return ((IpPacket) packet).getHeader().getSrcAddr().getHostAddress();
+            } else if (packet instanceof ArpPacket) {
+                return ((ArpPacket) packet).getHeader().getSrcProtocolAddr().getHostAddress();
             }
-        } else if (packet instanceof ArpPacket) {
-            return ((ArpPacket) packet).getHeader().getSrcProtocolAddr().getHostAddress();
+            // Move to the next layer of the packet (payload)
+            packet = packet.getPayload();
         }
         return "Unknown";
     }
 
     // Extract destination IP
     private String extractDestination(Packet packet) {
-        if (packet instanceof IpPacket) {
-            return ((IpPacket) packet).getHeader().getDstAddr().getHostAddress();
-        } else if (packet instanceof EthernetPacket) {
-            Packet payload = ((EthernetPacket) packet).getPayload();
-            if (payload instanceof IpPacket) {
-                return ((IpPacket) payload).getHeader().getDstAddr().getHostAddress();
+        while (packet != null) {
+            if (packet instanceof IpPacket) {
+                return ((IpPacket) packet).getHeader().getDstAddr().getHostAddress();
+            } else if (packet instanceof ArpPacket) {
+                return ((ArpPacket) packet).getHeader().getDstProtocolAddr().getHostAddress();
             }
-        } else if (packet instanceof ArpPacket) {
-            return ((ArpPacket) packet).getHeader().getDstProtocolAddr().getHostAddress();
+            // Move to the next layer of the packet (payload)
+            packet = packet.getPayload();
         }
         return "Unknown";
     }
 
+
     // Extract protocol
     private String extractProtocol(Packet packet) {
-        if (packet instanceof IpPacket) {
-            IpNumber protocol = ((IpPacket) packet).getHeader().getProtocol();
-            return protocol != null ? protocol.toString() : "Unknown";
-        } else if (packet instanceof TcpPacket) {
-            return "TCP";
-        } else if (packet instanceof UdpPacket) {
-            return "UDP";
-        } else if (packet instanceof ArpPacket) {
-            return "ARP";
+        while (packet != null) {
+            if (packet instanceof IpPacket) {
+                IpPacket ipPacket = (IpPacket) packet;
+                IpNumber protocol = ipPacket.getHeader().getProtocol();
+                return protocol != null ? protocol.toString() : "Unknown";
+            } else if (packet instanceof TcpPacket) {
+                return "TCP";
+            } else if (packet instanceof UdpPacket) {
+                return "UDP";
+            } else if (packet instanceof ArpPacket) {
+                return "ARP";
+            }
+            // Move to the next layer of the packet (payload)
+            packet = packet.getPayload();
         }
         return "Unknown";
     }
+
 
     // Get captured packets
     public List<Packet> getCapturedPackets() {
