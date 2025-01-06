@@ -13,7 +13,9 @@ import IDS.PacketReception;
 import java.io.IOException;
 
 public class IdsApplication extends Application {
-    private PacketReception packetReception = new PacketReception(); // Shared instance
+    private PacketReception packetReception = new PacketReception();
+    private String css = getClass().getResource("/IDSfxml/styling.css").toExternalForm();
+    // Shared instance
     @Override
     public void start(Stage primaryStage) throws Exception {
         switchToMainScene(primaryStage); // Start with the main scene
@@ -30,6 +32,7 @@ public class IdsApplication extends Application {
 
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(css);
         stage.setTitle("Main Scene");
         stage.setScene(scene);
         stage.show();
@@ -42,6 +45,7 @@ public class IdsApplication extends Application {
 
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(css);
         stage.setTitle("Packet Capture");
         stage.setScene(scene);
         stage.show();

@@ -3,10 +3,29 @@
     -fx-text-fill: white;         /* Text color */
     -fx-font-size: 14px;          /* Adjust font size */
 }
+.bg-black{
+   -fx-background-color: #111111;
+}
+
+.text-white {
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+
+
+}
+.text-black{
+    -fx-font-size: 18px;
+    -fx-text-fill: black;
+
+}
+
+.icon-color {
+    -fx-border-color: white;
+    -fx-border-width: 5px;
+}
 
 .choice-box .list-cell {
-    -fx-background-color: #444444; /* Background for dropdown items */
-    -fx-text-fill: white;          /* Text color for dropdown items */
+    -fx-cursor:pointer;
 }
 
 .choice-box .arrow-button {
