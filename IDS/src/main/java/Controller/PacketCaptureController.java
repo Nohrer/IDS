@@ -57,7 +57,6 @@ public class PacketCaptureController {
         lengthColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getLength()));
 
         packetTable.setItems(packetDataList);
-        setPacketNumber();
         new Thread(() -> {
             try {
 
@@ -71,7 +70,10 @@ public class PacketCaptureController {
 
     @FXML
     public void onStopCapture(ActionEvent e){
+        packetNumber.setText(String.valueOf(packetReception.packetNumber()));
+        connexionNumber.setText(String.valueOf(packetReception.connexionNumber()));
         packetReception.stopCapture();
+
     }
 
     @FXML
@@ -83,13 +85,6 @@ public class PacketCaptureController {
         }
     }
 
-    public void setPacketNumber() {
-        if (packetDataList != null && packetNumber != null) {
-            int size = packetDataList.size();
-            packetNumber.setText(String.valueOf(size));
-        } else {
-            System.out.println("Error: packetDataList or packetNumber is null.");
-        }
-    }
+
 
 }

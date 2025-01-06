@@ -24,6 +24,9 @@ public class PacketReception {
     public PcapNetworkInterface getDevice() {
         return this.device;
     }
+    public PacketReception() {
+        this.connectionTracker = new ConnectionTracker();
+    }
 
     public void setDevice(PcapNetworkInterface device) {
         if (device == null) {
@@ -78,6 +81,7 @@ public class PacketReception {
 
                             // Process the packet
                             capturedPackets.add(packet);
+                            connectionTracker.updateConnections(packet);
 
                             final String time = new Date().toString();
                             final String source = extractSource(packet);
@@ -89,6 +93,7 @@ public class PacketReception {
                                 @Override
                                 public void run() {
                                     packetDataList.add(new PacketData(time, source, destination, protocol, length));
+
                                 }
                             });
                         }
@@ -128,6 +133,14 @@ public class PacketReception {
         }
 
         System.out.println("Capture stopped.");
+    }
+    //Retourne ConnectionNumber.
+
+    public int connexionNumber(){
+        return connectionTracker.getActiveConnectionCount();
+    }
+    public int packetNumber(){
+        return capturedPackets.size();
     }
 
     // Extract source IP
