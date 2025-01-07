@@ -3,7 +3,7 @@ package Controller;
 import App.IdsApplication;
 import IDS.BannedIpAddresse;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
@@ -41,6 +41,9 @@ public class BlackListController {
             bannedIpAddresse.addIpToBlackList(ip);
             blackListedIpList.getItems().add(ip);
             blackListedIpTextAdd.clear();
+            showAlert("Succès", "L'adresse IP a été ajoutée à la liste noire.");
+        } else {
+            showAlert("Erreur", "L'adresse IP ne peut pas être vide.");
         }
     }
 
@@ -49,9 +52,16 @@ public class BlackListController {
         // Remove IP from blacklist
         String ip = blackListedIpRemove.getText();
         if (ip != null && !ip.isEmpty()) {
-            bannedIpAddresse.removeIpFromBlackList(ip);
-            blackListedIpList.getItems().remove(ip);
-            blackListedIpRemove.clear();
+            if (bannedIpAddresse.isIpBanned(ip)) {
+                bannedIpAddresse.removeIpFromBlackList(ip);
+                blackListedIpList.getItems().remove(ip);
+                blackListedIpRemove.clear();
+                showAlert("Succès", "L'adresse IP a été retirée de la liste noire.");
+            } else {
+                showAlert("Erreur", "L'adresse IP n'est pas dans la liste noire.");
+            }
+        } else {
+            showAlert("Erreur", "L'adresse IP ne peut pas être vide.");
         }
     }
 
@@ -68,5 +78,13 @@ public class BlackListController {
 
     public void setApp(IdsApplication app) {
         this.app = app;
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
