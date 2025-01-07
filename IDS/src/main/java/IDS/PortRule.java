@@ -19,8 +19,4 @@ public class PortRule implements Rule {
         return false;
     }
 
-    @Override
-    public String getDescription() {
-        return "Detect packets to port: " + suspiciousPort;
-    }
 }

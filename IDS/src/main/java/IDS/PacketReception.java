@@ -20,7 +20,7 @@ public class PacketReception {
     private volatile boolean isCapturing = false;
     private volatile boolean stopCapture = false;
     private Thread captureThread;
-
+    private IntrusionDetector intrusionDetector=new IntrusionDetector();
     public PcapNetworkInterface getDevice() {
         return this.device;
     }
@@ -82,7 +82,7 @@ public class PacketReception {
                             // Process the packet
                             capturedPackets.add(packet);
                             connectionTracker.updateConnections(packet);
-
+                            intrusionDetector.detectIntrusion(packet);
                             final String time = new Date().toString();
                             final String source = extractSource(packet);
                             final String destination = extractDestination(packet);
