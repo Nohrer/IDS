@@ -24,7 +24,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="66.0" prefWidth="228.0">
                 <children>
-                    <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" styleClass="icon-color">
+                    <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" styleClass="icon-color" onMouseClicked="#onDashboardClick">
                         <image>
                             <Image url="@../photos/home.png" />
                         </image>
@@ -32,7 +32,7 @@
                             <ColorAdjust brightness="1.0" />
                         </effect>
                     </ImageView>
-                    <Text fill="WHITE" layoutX="65.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-white" text="Dashboard" wrappingWidth="162.7294921875" />
+                    <Text fill="WHITE" layoutX="65.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-white" text="Dashboard" wrappingWidth="162.7294921875" onMouseClicked="#onDashboardClick"/>
                 </children>
             </AnchorPane>
             <AnchorPane prefHeight="66.0" prefWidth="228.0">

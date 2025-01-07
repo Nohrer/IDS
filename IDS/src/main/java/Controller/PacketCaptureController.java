@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -89,8 +90,7 @@ public class PacketCaptureController {
     }
 
     @FXML
-    public void onBlackListView(ActionEvent e) {
-        System.out.println("Black screen button clicked");
+    public void onBlackListView(MouseEvent e) {
         try {
             Stage stage = (Stage) packetTable.getScene().getWindow(); // Get the current stage
             app.switchToBlackList(stage); // Switch to BlackList scene

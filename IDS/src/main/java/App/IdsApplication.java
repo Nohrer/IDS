@@ -62,8 +62,8 @@ public class IdsApplication extends Application {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/IDSfxml/BlackList.fxml"));
-
             BlackListController blackListController = new BlackListController();
+            blackListController.setApp(this);
             loader.setController(blackListController);
 
             Parent root = loader.load();

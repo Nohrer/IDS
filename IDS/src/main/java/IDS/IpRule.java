@@ -31,6 +31,7 @@ public class IpRule implements Rule {
             String destinationIp = ipPacket.getHeader().getDstAddr().getHostAddress();
 
             if (bannedIpAddresse.isIpBanned(sourceIp) || bannedIpAddresse.isIpBanned(destinationIp)) {
+
                 severity = 5;
             }
 

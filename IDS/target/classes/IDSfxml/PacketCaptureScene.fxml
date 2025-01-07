@@ -27,8 +27,6 @@
         <!-- Stop capture button -->
         <Button fx:id="stopCaptureButton" layoutX="242.0" layoutY="671.0" onAction="#onStopCapture" prefHeight="34.0" prefWidth="200.0" text="Stop Capture" />
         <Button fx:id="resumeCaptureButton" layoutX="472.0" layoutY="671.0" onAction="#onResumeCapture" prefHeight="34.0" prefWidth="200.0" text="Run Capture" />
-        <Button  layoutX="600.0" layoutY="671.0"  onAction="#onBlackListView" prefHeight="34.0" prefWidth="200.0" text="screen" />
-
 
       <HBox alignment="CENTER_LEFT" layoutX="239.0" layoutY="34.0" prefHeight="147.0" prefWidth="1014.0" spacing="80.0">
          <children>
@@ -89,19 +87,19 @@
                   <Text fill="WHITE" layoutX="65.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-white" text="Notification" wrappingWidth="162.7294921875" />
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="66.0" prefWidth="228.0">
-               <children>
-                  <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="20.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" >
-                     <image>
-                        <Image url="@../photos/stat.png" />
-                     </image>
-                     <effect>
-                        <ColorAdjust brightness="1.0" />
-                     </effect>
-                  </ImageView>
-                  <Text fill="WHITE" layoutX="65.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-white" text="Black List" wrappingWidth="162.7294921875" />
-               </children>
-            </AnchorPane>
+             <AnchorPane prefHeight="66.0" prefWidth="228.0">
+                 <children>
+                     <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="20.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#onBlackListView">
+                         <image>
+                             <Image url="@../photos/stat.png" />
+                         </image>
+                         <effect>
+                             <ColorAdjust brightness="1.0" />
+                         </effect>
+                     </ImageView>
+                     <Text fill="WHITE" layoutX="65.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-white" text="Black List" wrappingWidth="162.7294921875" onMouseClicked="#onBlackListView"/>
+                 </children>
+             </AnchorPane>
          </children>
       </VBox>
     </children>
