@@ -1,7 +1,6 @@
 .choice-box {
-    -fx-background-color: #333333; /* Background color for the box */
-    -fx-text-fill: white;         /* Text color */
     -fx-font-size: 14px;          /* Adjust font size */
+    -fx-text-color:white;
 }
 .bg-black{
    -fx-background-color: #111111;
@@ -28,6 +27,3 @@
     -fx-cursor:pointer;
 }
 
-.choice-box .arrow-button {
-    -fx-background-color: #333333; /* Arrow button color */
-}

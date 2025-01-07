@@ -180,6 +180,18 @@ public class PacketReception {
                 IpNumber protocol = ipPacket.getHeader().getProtocol();
                 return protocol != null ? protocol.toString() : "Unknown";
             } else if (packet instanceof TcpPacket) {
+                TcpPacket tcpPacket = (TcpPacket) packet;
+                TcpPacket.TcpHeader tcpHeader = tcpPacket.getHeader();
+                int srcPort = tcpHeader.getSrcPort().valueAsInt();
+                int dstPort = tcpHeader.getDstPort().valueAsInt();
+
+                // Check for HTTP and HTTPS
+                if (srcPort == 80 || dstPort == 80) {
+                    return "HTTP";
+                } else if (srcPort == 443 || dstPort == 443) {
+                    return "HTTPS";
+                }
+
                 return "TCP";
             } else if (packet instanceof UdpPacket) {
                 return "UDP";
@@ -191,6 +203,10 @@ public class PacketReception {
         }
         return "Unknown";
     }
+
+
+
+
 
 
     // Get captured packets

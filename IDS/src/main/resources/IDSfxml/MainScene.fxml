@@ -21,7 +21,7 @@
             </Label>
             <ImageView fitHeight="107.0" fitWidth="133.0" layoutX="92.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../IDSIcon.png" />
+                  <Image url="@../photos/IDSIcon.png" />
                </image>
             </ImageView>
          </children>
