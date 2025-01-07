@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="799.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane  prefHeight="799.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" >
     <children>
         <!-- Table for displaying packets -->
         <TableView fx:id="packetTable" layoutX="242.0" layoutY="221.0" prefHeight="432.0" prefWidth="1008.0">
@@ -27,6 +27,9 @@
         <!-- Stop capture button -->
         <Button fx:id="stopCaptureButton" layoutX="242.0" layoutY="671.0" onAction="#onStopCapture" prefHeight="34.0" prefWidth="200.0" text="Stop Capture" />
         <Button fx:id="resumeCaptureButton" layoutX="472.0" layoutY="671.0" onAction="#onResumeCapture" prefHeight="34.0" prefWidth="200.0" text="Run Capture" />
+        <Button  layoutX="600.0" layoutY="671.0"  onAction="#onBlackListView" prefHeight="34.0" prefWidth="200.0" text="screen" />
+
+
       <HBox alignment="CENTER_LEFT" layoutX="239.0" layoutY="34.0" prefHeight="147.0" prefWidth="1014.0" spacing="80.0">
          <children>
             <AnchorPane fx:id="packetBox" prefHeight="147.0" prefWidth="247.0">
@@ -88,7 +91,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="66.0" prefWidth="228.0">
                <children>
-                  <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="20.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="20.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" >
                      <image>
                         <Image url="@../photos/stat.png" />
                      </image>

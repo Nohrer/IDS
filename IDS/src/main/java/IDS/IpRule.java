@@ -15,7 +15,8 @@ public class IpRule implements Rule {
     public boolean evaluate(Packet packet) {
         if (packet.contains(org.pcap4j.packet.IpV4Packet.class)) {
             String srcIp = packet.get(org.pcap4j.packet.IpV4Packet.class).getHeader().getSrcAddr().getHostAddress();
-            return bannedIpAddresse.isIpBanned(srcIp);
+            //return bannedIpAddresse.isIpBanned(srcIp);
+            //2
         }
         return false;
     }

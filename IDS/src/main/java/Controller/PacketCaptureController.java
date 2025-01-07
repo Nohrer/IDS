@@ -2,6 +2,7 @@ package Controller;
 
 import IDS.ConnectionTracker;
 import IDS.PacketData;
+import App.IdsApplication;
 import IDS.PacketReception;
 import IDS.TrafficCounter;
 import javafx.beans.value.ObservableIntegerValue;
@@ -14,9 +15,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class PacketCaptureController {
-
+    private IdsApplication app;
     private PacketReception packetReception;
     @FXML
     private TableView<PacketData> packetTable;
@@ -43,8 +45,9 @@ public class PacketCaptureController {
     private Text connexionNumber;
 
     private ObservableList<PacketData> packetDataList = FXCollections.observableArrayList();
-    public PacketCaptureController(PacketReception packetReception) {
+    public PacketCaptureController(PacketReception packetReception,IdsApplication app) {
         this.packetReception = packetReception;
+        this.app=app;
 
     }
 
@@ -85,6 +88,16 @@ public class PacketCaptureController {
         }
     }
 
+    @FXML
+    public void onBlackListView(ActionEvent e) {
+        System.out.println("Black screen button clicked");
+        try {
+            Stage stage = (Stage) packetTable.getScene().getWindow(); // Get the current stage
+            app.switchToBlackList(stage); // Switch to BlackList scene
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
 
 }
