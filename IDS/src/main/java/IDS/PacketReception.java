@@ -174,9 +174,6 @@ public class PacketReception {
 
     private String extractProtocol(Packet packet) {
         while (packet != null) {
-            // Check if it's an IP packet
-
-            // Check if it's a TCP packet
             if (packet instanceof TcpPacket) {
                 TcpPacket tcpPacket = (TcpPacket) packet;
                 TcpPacket.TcpHeader tcpHeader = tcpPacket.getHeader();
