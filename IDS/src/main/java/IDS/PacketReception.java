@@ -200,7 +200,6 @@ public class PacketReception {
                 return "ARP";
             }
             else if (packet instanceof IpPacket) {
-                System.out.print("Lkwa");
                 IpPacket ipPacket = (IpPacket) packet;
                 IpNumber protocol = ipPacket.getHeader().getProtocol();
                 if(protocol.name().toString()=="TCP" && packet.get(TcpPacket.class).getHeader().getDstPort().valueAsInt() ==443)
