@@ -172,37 +172,51 @@ public class PacketReception {
     }
 
 
-    // Extract protocol
     private String extractProtocol(Packet packet) {
         while (packet != null) {
-            if (packet instanceof IpPacket) {
-                IpPacket ipPacket = (IpPacket) packet;
-                IpNumber protocol = ipPacket.getHeader().getProtocol();
-                return protocol != null ? protocol.toString() : "Unknown";
-            } else if (packet instanceof TcpPacket) {
+            // Check if it's an IP packet
+
+            // Check if it's a TCP packet
+            if (packet instanceof TcpPacket) {
                 TcpPacket tcpPacket = (TcpPacket) packet;
                 TcpPacket.TcpHeader tcpHeader = tcpPacket.getHeader();
                 int srcPort = tcpHeader.getSrcPort().valueAsInt();
                 int dstPort = tcpHeader.getDstPort().valueAsInt();
 
-                // Check for HTTP and HTTPS
+                // Check for HTTP and HTTPS based on port numbers
                 if (srcPort == 80 || dstPort == 80) {
                     return "HTTP";
                 } else if (srcPort == 443 || dstPort == 443) {
                     return "HTTPS";
                 }
-
                 return "TCP";
-            } else if (packet instanceof UdpPacket) {
+            }
+            // Check if it's a UDP packet
+            else if (packet instanceof UdpPacket) {
                 return "UDP";
-            } else if (packet instanceof ArpPacket) {
+            }
+            // Check if it's an ARP packet
+            else if (packet instanceof ArpPacket) {
                 return "ARP";
             }
+            else if (packet instanceof IpPacket) {
+                System.out.print("Lkwa");
+                IpPacket ipPacket = (IpPacket) packet;
+                IpNumber protocol = ipPacket.getHeader().getProtocol();
+                if(protocol.name().toString()=="TCP" && packet.get(TcpPacket.class).getHeader().getDstPort().valueAsInt() ==443)
+                    return "HTTPS";
+                else if (protocol.name().toString()=="TCP" && packet.get(TcpPacket.class).getHeader().getDstPort().valueAsInt() ==80) {
+                    return "HTTP";
+                }
+                return protocol != null ? protocol.name().toString() : "Unknown IP Protocol";
+            }
+
             // Move to the next layer of the packet (payload)
             packet = packet.getPayload();
         }
-        return "Unknown";
+        return "Unknown Protocol";
     }
+
 
 
 
