@@ -21,11 +21,10 @@ public class IntrusionDetector {
         String srcIp = extractSourceIP(packet);
         if (srcIp != null && blacklistedIPs.contains(srcIp)) {
             System.out.println("ALERT: Intrusion detected from IP " + srcIp);
-            // Additional action can be added here, e.g., log the incident or block the packet
-        }
+            //more actions
+            }
     }
 
-    // Extract source IP from packet
     private String extractSourceIP(Packet packet) {
         if (packet.contains(IpV4Packet.class)) {
             return packet.get(IpV4Packet.class).getHeader().getSrcAddr().getHostAddress();
