@@ -2,7 +2,9 @@ package IDS;
 
 import org.pcap4j.packet.Packet;
 
+import java.util.List;
+
 public interface Rule {
-    boolean evaluate(Packet packet);
+    void evaluate(Packet packet, List<Notification> notifications);
     int calculateSeverity(Packet packet);
 }

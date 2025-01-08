@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Notification {
-    private String severity;
+    private int severity;
     private String description;
     private String srcIp;
     private int dstPort;
@@ -13,7 +13,7 @@ public class Notification {
     public Notification() {
     }
 
-    public Notification(String severity, String description, String srcIp, int dstPort, String date) {
+    public Notification(int severity, String description, String srcIp, int dstPort, String date) {
         this.severity = severity;
         this.description = description;
         this.srcIp = srcIp;
@@ -21,8 +21,19 @@ public class Notification {
         this.date = date;
     }
 
-    public String getSeverity() { return severity; }
-    public void setSeverity(String severity) { this.severity = severity; }
+    @Override
+    public String toString() {
+        return "Notification{" +
+                "severity=" + severity +
+                ", description='" + description + '\'' +
+                ", srcIp='" + srcIp + '\'' +
+                ", dstPort=" + dstPort +
+                ", date='" + date + '\'' +
+                '}';
+    }
+
+    public int getSeverity() { return severity; }
+    public void setSeverity(int severity) { this.severity = severity; }
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }

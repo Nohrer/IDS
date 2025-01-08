@@ -27,6 +27,7 @@ public class PacketReception {
     public PacketReception() {
         this.connectionTracker = new ConnectionTracker();
     }
+    private List<Notification> notifications = new ArrayList<>();
 
     public void setDevice(PcapNetworkInterface device) {
         if (device == null) {
@@ -82,7 +83,7 @@ public class PacketReception {
                             // Process the packet
                             capturedPackets.add(packet);
                             connectionTracker.updateConnections(packet);
-                            intrusionDetector.detectIntrusion(packet);
+                            intrusionDetector.detectIntrusion(packet,notifications);
                             final String time = new Date().toString();
                             final String source = extractSource(packet);
                             final String destination = extractDestination(packet);

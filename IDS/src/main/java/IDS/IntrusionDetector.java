@@ -14,14 +14,14 @@ public class IntrusionDetector {
     private final List<Rule> rules = new ArrayList<>();
 
     private final Set<Integer> suspiciousPorts = Set.of(
-           // 22,   // SSH
-           // 23,   // Telnet
+            22,   // SSH
+            23,   // Telnet
             //25,   // SMTP
             //53,   // DNS
-            80   // HTTP
+            80,   // HTTP
             //110,  // POP3
             //143,  // IMAP
-            //443,  // HTTPS
+            443  // HTTPS
             //445,  // SMB
             //3389  // RDP
     );
@@ -34,13 +34,10 @@ public class IntrusionDetector {
         rules.add(portRule);
     }
 
-    public void detectIntrusion(Packet packet) {
+    public void detectIntrusion(Packet packet, List<Notification> notifications) {
         for (Rule rule : rules) {
-            if (rule.evaluate(packet)) {
-                int severity = rule.calculateSeverity(packet);
-                System.out.println("ALERT: Rule violation detected! Severity : "+ severity);
+                rule.evaluate(packet,notifications);
             }
         }
 
     }
-}
