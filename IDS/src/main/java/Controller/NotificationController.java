@@ -1,7 +1,6 @@
 package Controller;
 
 import App.IdsApplication;
-import IDS.Notification;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
