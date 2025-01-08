@@ -2,21 +2,25 @@ package Controller;
 
 import IDS.ConnectionTracker;
 import IDS.PacketData;
+import App.IdsApplication;
 import IDS.PacketReception;
 import IDS.TrafficCounter;
 import javafx.beans.value.ObservableIntegerValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.Button;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class PacketCaptureController {
-
+    private IdsApplication app;
     private PacketReception packetReception;
     @FXML
     private TableView<PacketData> packetTable;
@@ -43,8 +47,9 @@ public class PacketCaptureController {
     private Text connexionNumber;
 
     private ObservableList<PacketData> packetDataList = FXCollections.observableArrayList();
-    public PacketCaptureController(PacketReception packetReception) {
+    public PacketCaptureController(PacketReception packetReception,IdsApplication app) {
         this.packetReception = packetReception;
+        this.app=app;
 
     }
 
@@ -85,6 +90,25 @@ public class PacketCaptureController {
         }
     }
 
+    @FXML
+    public void onBlackListView(MouseEvent e) {
+        try {
+            Stage stage = (Stage) packetTable.getScene().getWindow(); // Get the current stage
+            app.switchToBlackList(stage); // Switch to BlackList scene
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void onNotificationsClick(MouseEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            app.switchToNotifications(stage);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
 
 }
