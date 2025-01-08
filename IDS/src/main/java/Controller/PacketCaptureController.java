@@ -8,6 +8,7 @@ import IDS.TrafficCounter;
 import javafx.beans.value.ObservableIntegerValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.Button;
@@ -94,6 +95,16 @@ public class PacketCaptureController {
         try {
             Stage stage = (Stage) packetTable.getScene().getWindow(); // Get the current stage
             app.switchToBlackList(stage); // Switch to BlackList scene
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void onNotificationsClick(MouseEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            app.switchToNotifications(stage);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

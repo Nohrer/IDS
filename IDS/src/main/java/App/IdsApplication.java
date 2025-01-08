@@ -2,6 +2,7 @@ package App;
 
 import Controller.BlackListController;
 import Controller.MainSceneController;
+import Controller.NotificationController;
 import Controller.PacketCaptureController;
 import IDS.PacketReception;
 import javafx.application.Application;
@@ -72,6 +73,22 @@ public class IdsApplication extends Application {
 
             scene.getStylesheets().add(css);
             stage.setTitle("Black List");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void switchToNotifications(Stage stage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/IDSfxml/Notification.fxml"));
+            NotificationController notificationController= new NotificationController();
+            loader.setController(notificationController);
+            notificationController.setApp(this);
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(css);
+            stage.setTitle("Notifications");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

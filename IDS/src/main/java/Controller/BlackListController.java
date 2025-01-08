@@ -3,12 +3,18 @@ package Controller;
 import App.IdsApplication;
 import IDS.BannedIpAddresse;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 
 public class BlackListController {
     private IdsApplication app;
@@ -25,12 +31,17 @@ public class BlackListController {
     private BannedIpAddresse bannedIpAddresse;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws URISyntaxException {
         // Initialize the BannedIpAddresse with a path to the blacklist file
-        bannedIpAddresse = new BannedIpAddresse("/home/nohrer/Desktop/COOP/IDS/IDS/src/main/resources/blackList.txt");
-
-        // Load the blacklisted IP addresses into the ListView
-        blackListedIpList.getItems().addAll(bannedIpAddresse.getBlackList());
+        URL fileUrl = getClass().getResource("/blackList.txt");
+        if (fileUrl != null) {
+            File file = Paths.get(fileUrl.toURI()).toFile();
+            bannedIpAddresse = new BannedIpAddresse(file.getPath());
+            // Load the blacklisted IP addresses into the ListView
+            blackListedIpList.getItems().addAll(bannedIpAddresse.getBlackList());
+        } else {
+            showAlert("Error", "Blacklist file not found.");
+        }
     }
 
     @FXML
@@ -41,9 +52,9 @@ public class BlackListController {
             bannedIpAddresse.addIpToBlackList(ip);
             blackListedIpList.getItems().add(ip);
             blackListedIpTextAdd.clear();
-            showAlert("Succès", "L'adresse IP a été ajoutée à la liste noire.");
+            showAlert("Success", "The IP address has been added to the blacklist.");
         } else {
-            showAlert("Erreur", "L'adresse IP ne peut pas être vide.");
+            showAlert("Error", "The IP address cannot be empty.");
         }
     }
 
@@ -56,18 +67,17 @@ public class BlackListController {
                 bannedIpAddresse.removeIpFromBlackList(ip);
                 blackListedIpList.getItems().remove(ip);
                 blackListedIpRemove.clear();
-                showAlert("Succès", "L'adresse IP a été retirée de la liste noire.");
+                showAlert("Success", "The IP address has been removed from the blacklist.");
             } else {
-                showAlert("Erreur", "L'adresse IP n'est pas dans la liste noire.");
+                showAlert("Error", "The IP address is not in the blacklist.");
             }
         } else {
-            showAlert("Erreur", "L'adresse IP ne peut pas être vide.");
+            showAlert("Error", "The IP address cannot be empty.");
         }
     }
 
     @FXML
     public void onDashboardClick(MouseEvent event) {
-        System.out.println("Dashboard clicked");
         try {
             Stage stage = (Stage) blackListedIpList.getScene().getWindow(); // Get the current stage
             app.switchToPacketCapture(stage); // Switch to PacketCapture scene
@@ -76,6 +86,15 @@ public class BlackListController {
         }
     }
 
+    @FXML
+    public void onNotificationsClick(MouseEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            app.switchToNotifications(stage);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
     public void setApp(IdsApplication app) {
         this.app = app;
     }
@@ -87,4 +106,6 @@ public class BlackListController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
 }

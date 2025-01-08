@@ -37,7 +37,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="66.0" prefWidth="228.0">
                 <children>
-                    <ImageView fitHeight="22.0" fitWidth="24.0" layoutX="22.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="20.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#onNotificationsClick">
                         <image>
                             <Image url="@../photos/notif.png" />
                         </image>
@@ -45,7 +45,7 @@
                             <ColorAdjust brightness="1.0" />
                         </effect>
                     </ImageView>
-                    <Text fill="WHITE" layoutX="65.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-white" text="Notification" wrappingWidth="162.7294921875" />
+                    <Text fill="WHITE" layoutX="65.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-white" text="Notifications" wrappingWidth="162.7294921875" onMouseClicked="#onNotificationsClick"/>
                 </children>
             </AnchorPane>
             <AnchorPane prefHeight="66.0" prefWidth="228.0">
