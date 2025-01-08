@@ -82,7 +82,7 @@ public class IdsApplication extends Application {
     public void switchToNotifications(Stage stage) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/IDSfxml/Notification.fxml"));
-            NotificationController notificationController= new NotificationController();
+            NotificationController notificationController= new NotificationController(packetReception);
             loader.setController(notificationController);
             notificationController.setApp(this);
             Parent root = loader.load();

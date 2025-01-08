@@ -15,7 +15,6 @@ public class PacketReception {
     private PcapNetworkInterface device = null;
     private ConnectionTracker connectionTracker;
     private final List<Packet> capturedPackets = new ArrayList<>();
-    private final List<PacketFilter> filters = new ArrayList<>();
     private PcapHandle handle; // Handle for packet capture
     private volatile boolean isCapturing = false;
     private volatile boolean stopCapture = false;
@@ -28,6 +27,10 @@ public class PacketReception {
         this.connectionTracker = new ConnectionTracker();
     }
     private List<Notification> notifications = new ArrayList<>();
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
 
     public void setDevice(PcapNetworkInterface device) {
         if (device == null) {
@@ -49,7 +52,6 @@ public class PacketReception {
     }
 
     // Start packet capture
-    //n9dro ndiro nfs lblan
     public void runCapture(ObservableList<PacketData> packetDataList) {
         if (isCapturing) {
             System.out.println("Capture is already running.");
@@ -217,7 +219,9 @@ public class PacketReception {
 
 
 
-
+    public int getNotificationCount() {
+        return notifications.size();
+    }
 
 
     // Get captured packets

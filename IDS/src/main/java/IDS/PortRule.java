@@ -4,6 +4,7 @@ import org.pcap4j.packet.Packet;
 import org.pcap4j.packet.TcpPacket;
 import org.pcap4j.packet.UdpPacket;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -24,7 +25,7 @@ public class PortRule implements Rule {
                 int severity = calculateSeverity(packet);
                 String srcIp = packet.get(org.pcap4j.packet.IpV4Packet.class).getHeader().getSrcAddr().getHostAddress();
                 String description = generateDescription(destPort, "Port-based intrusion detected");
-                String date = new Date().toString();
+                LocalDate date = LocalDate.now();
 
                 Notification notification = new Notification(severity, description, srcIp, destPort, date);
                 notifications.addFirst(notification);

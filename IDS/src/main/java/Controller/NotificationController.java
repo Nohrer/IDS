@@ -1,6 +1,8 @@
 package Controller;
 
 import App.IdsApplication;
+import IDS.Notification;
+import IDS.PacketReception;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,10 +14,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class NotificationController {
     private IdsApplication app;
-
+    private List<Notification> notifications;
     @FXML
     private TableView<Notification> notificationsTable;
 
@@ -26,30 +29,41 @@ public class NotificationController {
     private TableColumn<Notification, String> severityColumn;
 
     @FXML
+    private TableColumn<Notification, Integer> portNumber;
+
+    @FXML
+    private TableColumn<Notification, String> srcIp;
+
+    @FXML
     private TableColumn<Notification, String> descriptionColumn;
 
     private ObservableList<Notification> notificationsList = FXCollections.observableArrayList();
+
+    public NotificationController(PacketReception packetReception) {
+        notifications = packetReception.getNotifications();
+    }
 
     @FXML
     public void initialize() {
         // Initialize the columns
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        severityColumn.setCellValueFactory(new PropertyValueFactory<>("severity"));
+        severityColumn.setCellValueFactory(new PropertyValueFactory<>("severityDescription"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        portNumber.setCellValueFactory(new PropertyValueFactory<>("dstPort"));
+        srcIp.setCellValueFactory(new PropertyValueFactory<>("srcIp"));
 
-        // Load sample data
-        loadSampleData();
+        // Load data from PacketReception
+        loadData();
 
         // Set the data to the table
         notificationsTable.setItems(notificationsList);
     }
 
-    private void loadSampleData() {
-        // Add sample notifications
-        notificationsList.add(new Notification(LocalDate.now(), "High", "Sample high severity notification"));
-        notificationsList.add(new Notification(LocalDate.now(), "Medium", "Sample medium severity notification"));
-        notificationsList.add(new Notification(LocalDate.now(), "Low", "Sample low severity notification"));
+    private void loadData() {
+        // Add notifications from PacketReception to the observable list
+        notificationsList.addAll(notifications);
     }
+
     @FXML
     public void onDashboardClick(MouseEvent event) {
         System.out.println("Dashboard clicked");
@@ -60,6 +74,7 @@ public class NotificationController {
             ex.printStackTrace();
         }
     }
+
     @FXML
     public void onBlackListClick(MouseEvent e) {
         try {
@@ -69,8 +84,8 @@ public class NotificationController {
             ex.printStackTrace();
         }
     }
+
     public void setApp(IdsApplication app) {
         this.app = app;
     }
-
 }

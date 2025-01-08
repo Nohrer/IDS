@@ -5,14 +5,14 @@ import org.pcap4j.packet.Packet;
 import org.pcap4j.packet.TcpPacket;
 import org.pcap4j.packet.UdpPacket;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class IpRule implements Rule {
     private final BannedIpAddresse bannedIpAddresse;
 
     public IpRule() {
-        String filePath = "C:\\Users\\Soufiane\\Documents\\ENSETM\\UH2 ENSETM S3\\Java\\IDS2\\IDS\\IDS\\src\\main\\resources\\blackList.txt";
+        String filePath = "/home/nohrer/IdeaProjects/IDS/IDS/src/main/resources/blackList.txt";
         bannedIpAddresse = new BannedIpAddresse(filePath);
     }
 
@@ -24,11 +24,11 @@ public class IpRule implements Rule {
             if (bannedIpAddresse.isIpBanned(srcIp)) {
                 int severity = calculateSeverity(packet);
                 String description = generateDescription(packet, "IP-based intrusion detected");
-                String date = new Date().toString();
+                LocalDate date = LocalDate.now();
                 int destPort = extractDestinationPort(packet);
 
                 Notification notification = new Notification(severity, description, srcIp, destPort, date);
-                notifications.addFirst(notification);
+                notifications.add(notification);
                 System.out.println(notification.toString());
             }
         }
