@@ -27,10 +27,10 @@
         </TableView>
 
         <!-- Filter input and button -->
-        <HBox alignment="CENTER_LEFT" layoutX="242.0" layoutY="180.0" spacing="10.0">
+        <HBox alignment="CENTER_LEFT" layoutX="242.0" layoutY="180.0" prefHeight="38.0" prefWidth="572.0" spacing="10.0">
             <children>
-                <TextField fx:id="filterInput" prefHeight="38.0" prefWidth="200.0" promptText="Enter filter criteria" styleClass="modern-textfield" />
-                <Button fx:id="applyFilterButton" onAction="#onApplyFilter" styleClass="modern-button" text="Apply Filter" />
+                <TextField fx:id="filterInput" prefHeight="38.0" prefWidth="389.0" promptText="Enter filter criteria" styleClass="modern-textfield" />
+                <Button fx:id="applyFilterButton" onAction="#onApplyFilter" prefHeight="24.0" prefWidth="138.0" styleClass="modern-button" text="Apply Filter" />
             </children>
         </HBox>
 
